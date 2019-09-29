@@ -1,0 +1,69 @@
+<div class="card mb-3">
+  <hr>
+  <h4 class="card-title blue-color text-center">{{title}}</h4>
+  <hr>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <hr>
+      <h6 class="blue-color text-center">{{item}}</h6>
+      <hr>
+      <form class="form" [formGroup]="shoppingCartForm">
+        <div class="card-body pt-2 pb-2">
+          <input type="hidden" formControlName="id">
+
+          <div class="row p-1">
+            <div class="col-lg-6 col-xs-12 col-md-6 ">
+              <label>Name <span class="required">*</span> :</label>
+            </div>
+            <div class="col-lg-3.5 col-xs-3.5 col-md-3.5">
+              <mat-form-field>
+                <mat-select formControlName="name" [(value)]="shoppingCart.name">
+                  <mat-option *ngFor="let shoppingItem of itemList" [value]="shoppingItem.value">
+                    {{shoppingItem.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row p-1">
+            <div class="col-lg-6 col-xs-12 col-md-6">
+              <label>Quantity <span class="required">*</span>:</label>
+            </div>
+            <div class="col-lg-3.5 col-xs-3.5 col-md-3.5"
+                 [ngClass]="{'has-danger': shoppingCartForm.controls.quantity.invalid
+                 &&(shoppingCartForm.controls.quantity.dirty || shoppingCartForm.controls.quantity.touched)}">
+              <input type="matInput" formControlName="quantity">
+            </div>
+          </div>
+
+          <div class="row p-1">
+            <div class="col-lg-6 col-xs-12 col-md-6">
+              <label>Price <span class="required">*</span>:</label>
+            </div>
+            <div class="col-lg-3.5 col-xs-3.5 col-md-3.5"
+                 [ngClass]="{'has-danger': shoppingCartForm.controls.price.invalid
+                 &&(shoppingCartForm.controls.price.dirty || shoppingCartForm.controls.price.touched)}">
+              <input type="matInput" formControlName="price">
+            </div>
+          </div>
+
+        </div>
+        <div class="card-footer col-lg-12 col-xs-12 col-md-12">
+          <div class="text-right">
+            <button mat-raised-button class="btn btn-outline-dark btn-primary btn-sm mx-1" type="button"
+                    (click)="add()" id="add">Add
+            </button>
+            <button mat-raised-button class="btn btn-outline-dark btn-primary btn-sm mx-1" type="button"
+                    (click)="cancel()" id="edit">Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <app-shopping-cart-list [shoppingItemsList]="shoppingList"
+                              [totalPrice]="shoppingListPrice"></app-shopping-cart-list>
+    </div>
+  </div>
+</div>
